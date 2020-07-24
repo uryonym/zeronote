@@ -1,5 +1,5 @@
-import React from 'react';
-import { Counter } from './features/counter/Counter';
+import React from 'react'
+import { Counter } from './features/counter/Counter'
 
 const App: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const App: React.FC = () => {
         <Counter />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
