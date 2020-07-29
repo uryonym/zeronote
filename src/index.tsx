@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './assets/index.css'
+import 'antd/dist/antd.min.css'
+import './assets/index.scss'
 import App from './App'
 import { store } from './app/store'
 import { Provider } from 'react-redux'

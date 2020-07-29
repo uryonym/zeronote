@@ -12,4 +12,18 @@ body {
 
 .App {
   display: flex;
+  align-items: stretch;
+}
+
+.ant-layout-sider {
+  background: #fafafa;
+  height: 100vh;
+}
+
+.ant-layout-header {
+  color: #fafafa;
+  h1 {
+    color: #fafafa;
+    display: inline-block;
+  }
 }
