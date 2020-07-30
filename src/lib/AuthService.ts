@@ -1,4 +1,8 @@
-import { AuthenticationParameters, Configuration, UserAgentApplication } from 'msal'
+import {
+  AuthenticationParameters,
+  Configuration,
+  UserAgentApplication
+} from 'msal'
 import { config } from './AzureConfig'
 
 const signInOptions: AuthenticationParameters = {

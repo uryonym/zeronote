@@ -15,14 +15,16 @@ const treeData = [
         children: [
           { title: 'leaf', key: '0-0-0-0', icon: <CarryOutOutlined /> },
           { title: 'leaf', key: '0-0-0-1', icon: <CarryOutOutlined /> },
-          { title: 'leaf', key: '0-0-0-2', icon: <CarryOutOutlined /> },
-        ],
+          { title: 'leaf', key: '0-0-0-2', icon: <CarryOutOutlined /> }
+        ]
       },
       {
         title: 'parent 1-1',
         key: '0-0-1',
         icon: <CarryOutOutlined />,
-        children: [{ title: 'leaf', key: '0-0-1-0', icon: <CarryOutOutlined /> }],
+        children: [
+          { title: 'leaf', key: '0-0-1-0', icon: <CarryOutOutlined /> }
+        ]
       },
       {
         title: 'parent 1-2',
@@ -34,13 +36,13 @@ const treeData = [
             title: 'leaf',
             key: '0-0-2-1',
             icon: <CarryOutOutlined />,
-            switcherIcon: <FormOutlined />,
-          },
-        ],
-      },
-    ],
-  },
-];
+            switcherIcon: <FormOutlined />
+          }
+        ]
+      }
+    ]
+  }
+]
 
 const App: React.FC = () => {
   const { Header, Sider, Content } = Layout

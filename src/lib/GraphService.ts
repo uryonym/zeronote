@@ -1,12 +1,7 @@
 import * as graph from '@microsoft/microsoft-graph-client'
 import * as authService from './AuthService'
 import { AuthProviderCallback, Client } from '@microsoft/microsoft-graph-client'
-import {
-  Notebook,
-  OnenotePage,
-  OnenoteResource,
-  User
-} from 'microsoft-graph'
+import { Notebook, OnenotePage, OnenoteResource, User } from 'microsoft-graph'
 
 class GraphService {
   async getUserInfo(): Promise<User> {
