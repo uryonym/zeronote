@@ -1,6 +1,7 @@
 import React from 'react'
-import { Layout, Select, Avatar, Tree } from 'antd'
-import { UserOutlined, CarryOutOutlined, FormOutlined } from '@ant-design/icons'
+import { Layout, Tree } from 'antd'
+import { CarryOutOutlined, FormOutlined } from '@ant-design/icons'
+import ZeroHeader from './components/ZeroHeader'
 
 const treeData = [
   {
@@ -45,23 +46,14 @@ const treeData = [
 ]
 
 const App: React.FC = () => {
-  const { Header, Sider, Content } = Layout
-  const { Option } = Select
+  const { Sider, Content } = Layout
   return (
     <Layout>
-      <Header>
-        <div className="sidebar-user">
-          <h1>ZeroNote</h1>
-          <Select placeholder="ノートを選択">
-            <Option value="note1">ノート１</Option>
-            <Option value="note2">ノート２</Option>
-            <Option value="note3">ノート３</Option>
-          </Select>
-          <Avatar size="large" icon={<UserOutlined />} />
-          <span className="user-name">ryo yoneyama</span>
-        </div>
-      </Header>
+      <ZeroHeader />
       <Layout>
+        <Sider className="sidebar-layout">
+          <Tree showLine={true} treeData={treeData} />
+        </Sider>
         <Sider className="sidebar-layout">
           <Tree showLine={true} treeData={treeData} />
         </Sider>
