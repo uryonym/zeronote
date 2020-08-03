@@ -27,3 +27,21 @@ body {
     display: inline-block;
   }
 }
+
+.login-container {
+  background: #7719AA;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.login-form {
+  text-align: center;
+  h1 {
+    color: #fafafa;
+  }
+}
+
+.ant-btn-primary {
+  background: #4caa19;
+}
