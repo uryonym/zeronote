@@ -5,7 +5,7 @@ export interface AzureConfig {
 }
 
 export const config: AzureConfig = {
-  appId: '3203ee46-d08f-421f-9233-160cfa27a931',
+  appId: '628001ff-baed-459b-aabe-a6846f761d4c',
   redirectUri: 'http://localhost:3000',
   scopes: ['user.read', 'notes.readwrite', 'notes.create']
 }

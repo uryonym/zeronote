@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd'
+import { PrimaryButton } from '@fluentui/react'
 import * as authService from '../lib/AuthService'
 
 const LoginForm: React.FC = () => {
@@ -9,9 +9,7 @@ const LoginForm: React.FC = () => {
         <h1>
           ZeroNoteのご利用にはMicrosoftアカウントでのサインインが必要です。
         </h1>
-        <Button size="large" type="primary" onClick={authService.signIn}>
-          サインイン
-        </Button>
+        <PrimaryButton text="サインイン" onClick={authService.signIn} />
       </div>
     </div>
   )
