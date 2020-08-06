@@ -2,7 +2,7 @@ import React from 'react'
 
 const ZeroSectionBar: React.FC = () => {
   return (
-    <div>test</div>
+    <div>text</div>
   )
 }
 

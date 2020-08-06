@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './assets/index.scss'
 import { loadTheme } from '@fluentui/react'
+import { initializeIcons } from '@uifabric/icons'
 import App from './App'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
@@ -30,9 +31,11 @@ loadTheme({
     neutralPrimary: '#323130',
     neutralDark: '#201f1e',
     black: '#000000',
-    white: '#fafafa',
+    white: '#fafafa'
   }
 })
+
+initializeIcons()
 
 ReactDOM.render(
   <React.StrictMode>

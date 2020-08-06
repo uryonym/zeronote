@@ -10,11 +10,6 @@ body {
   background: #fafafa;
 }
 
-.ant-layout-sider {
-  background: #fafafa;
-  height: 100vh;
-}
-
 .login-container {
   background: #fafafa;
   height: 100vh;
@@ -27,14 +22,25 @@ body {
   text-align: center;
 }
 
-.ant-layout-header {
+.zero-header {
   display: flex;
   align-items: center;
-  color: #fafafa;
-  h1 {
+  height: 48px;
+  padding-left: 50px;
+  background: #7719aa;
+  h3 {
     margin: 0;
     color: #fafafa;
   }
+  .user-icon {
+    color: #fafafa;
+
+  }
+}
+
+.ant-layout-sider {
+  background: #fafafa;
+  height: 100vh;
 }
 
 .select-note {
