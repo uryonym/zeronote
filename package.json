@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fluentui/react": "^7.124.3",
+    "@fluentui/react": "^7.126.2",
     "@microsoft/microsoft-graph-client": "^2.0.0",
     "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^5.11.1",
@@ -12,7 +12,7 @@
     "@types/jest": "^26.0.7",
     "@types/microsoft-graph": "^1.14.0",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
+    "@types/react": "^16.9.45",
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
     "@uifabric/icons": "^7.3.69",
@@ -20,7 +20,7 @@
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
+    "react-redux": "^7.2.1",
     "react-scripts": "3.4.1",
     "typescript": "^3.9.7"
   },
