@@ -16,10 +16,9 @@ body {
   display: grid;
   place-items: center;
   padding: 0 30px;
-}
-
-.login-form {
-  text-align: center;
+  .login-form {
+    text-align: center;
+  }
 }
 
 .zero-header {
@@ -47,15 +46,8 @@ body {
   }
 }
 
-.ant-layout-sider {
-  background: #fafafa;
+.zero-sectionbar {
   height: 100vh;
-}
-
-.select-note {
-  margin: 0 50px;
-}
-
-.right-menu {
-  margin-left: auto;
+  width: 150px;
+  border-right: 1px solid #dddddd;
 }
