@@ -9,8 +9,8 @@ const App: React.FC = () => {
   if (authService.isAuth()) {
     return (
       <div className="container">
-        <ZeroHeader/>
-        <ZeroSectionBar/>
+        <ZeroHeader />
+        <ZeroSectionBar />
       </div>
     )
   } else {

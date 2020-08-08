@@ -25,16 +25,25 @@ body {
 .zero-header {
   display: flex;
   align-items: center;
-  height: 48px;
-  padding-left: 50px;
+  align-content: center;
+  height: 40px;
+  padding: 0 32px;
   background: #7719aa;
-  h3 {
-    margin: 0;
+  h1 {
+    font-size: 15px;
     color: #fafafa;
+    margin: 0;
+  }
+  .note-select {
+    width: 150px;
+    margin-left: 32px;
   }
   .user-icon {
     color: #fafafa;
-
+    margin-left: auto;
+    padding: 0 5px;
+    height: 100%;
+    border-radius: 0;
   }
 }
 
