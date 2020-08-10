@@ -1,7 +1,8 @@
 import React from 'react'
-import ZeroHeader from './components/ZeroHeader'
-import ZeroSectionBar from './components/ZeroSectionBar'
-import LoginForm from './components/LoginForm'
+import { ZeroHeader } from './components/ZeroHeader'
+import { ZeroSectionBar } from './components/sidebar/ZeroSectionBar'
+import { ZeroPageBar } from './components/sidebar/ZeroPageBar'
+import { LoginForm } from './components/LoginForm'
 
 import * as authService from './lib/AuthService'
 
@@ -10,7 +11,11 @@ const App: React.FC = () => {
     return (
       <div className="container">
         <ZeroHeader />
-        <ZeroSectionBar />
+        <div className="content">
+          <ZeroSectionBar />
+          <ZeroPageBar />
+          <div className="editor">エディターエリア</div>
+        </div>
       </div>
     )
   } else {

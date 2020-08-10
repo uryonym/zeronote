@@ -8,7 +8,7 @@ import {
 } from '@fluentui/react'
 import * as authService from '../lib/AuthService'
 
-const ZeroHeader: React.FC = () => {
+export const ZeroHeader: React.FC = () => {
   const menuProps: IContextualMenuProps = {
     items: [
       {
@@ -61,5 +61,3 @@ const ZeroHeader: React.FC = () => {
     </header>
   )
 }
-
-export default ZeroHeader

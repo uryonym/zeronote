@@ -21,6 +21,10 @@ body {
   }
 }
 
+.container {
+  height: 100vh;
+}
+
 .zero-header {
   display: flex;
   align-items: center;
@@ -47,7 +51,18 @@ body {
 }
 
 .zero-sectionbar {
-  height: 100vh;
-  width: 150px;
-  border-right: 1px solid #dddddd;
+  border-right: 1px solid #ddd;
+}
+
+.zero-pagebar {
+  border-right: 1px solid #ddd;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+}
+
+.editor {
+  width: 100%;
 }

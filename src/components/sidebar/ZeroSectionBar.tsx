@@ -1,7 +1,8 @@
 import React from 'react'
 import { Nav, INavLinkGroup } from '@fluentui/react'
+import { sidebarStyles } from './SidebarStyle'
 
-const ZeroSectionBar: React.FC = () => {
+export const ZeroSectionBar: React.FC = () => {
   const navLinkGroups: INavLinkGroup[] = [
     {
       links: [
@@ -26,9 +27,7 @@ const ZeroSectionBar: React.FC = () => {
 
   return (
     <div className="zero-sectionbar">
-      <Nav groups={navLinkGroups} />
+      <Nav groups={navLinkGroups} styles={sidebarStyles} />
     </div>
   )
 }
-
-export default ZeroSectionBar
