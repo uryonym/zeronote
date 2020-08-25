@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ZeroHeader } from './components/ZeroHeader'
 import { ZeroSectionBar } from './components/sidebar/ZeroSectionBar'
 import { ZeroPageBar } from './components/sidebar/ZeroPageBar'
@@ -6,8 +6,18 @@ import { ZeroEditor } from './components/editor/ZeroEditor'
 import { LoginForm } from './components/LoginForm'
 
 import * as authService from './lib/AuthService'
+import { useDispatch } from 'react-redux'
+import { fetchUserData } from './store/UserSlice'
 
 const App: React.FC = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (authService.isAuth()) {
+      dispatch(fetchUserData())
+    }
+  }, [dispatch])
+
   if (authService.isAuth()) {
     return (
       <div className="container">

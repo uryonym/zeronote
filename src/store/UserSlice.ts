@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppThunk } from '../app/store'
+import {AppThunk, RootState} from '../app/store'
 import graphService from '../lib/GraphService'
 
 interface UserState {
@@ -36,6 +36,7 @@ export const { setUserData } = userSlice.actions
 export const fetchUserData = (): AppThunk => async (dispatch) => {
   try {
     const user = await graphService.getUserInfo()
+    console.log(user)
     const avatar = await graphService.getUserAvatar()
     const payload: UserState = {
       user: {
@@ -55,5 +56,7 @@ export const fetchUserData = (): AppThunk => async (dispatch) => {
     dispatch(setUserData(payload))
   }
 }
+
+export const selectUser = (state: RootState) => state.user.user
 
 export default userSlice.reducer

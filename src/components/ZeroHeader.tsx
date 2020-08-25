@@ -7,13 +7,21 @@ import {
   IDropdownOption
 } from '@fluentui/react'
 import * as authService from '../lib/AuthService'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../store/UserSlice'
 
 export const ZeroHeader: React.FC = () => {
+  const user = useSelector(selectUser)
+
   const menuProps: IContextualMenuProps = {
     items: [
       {
         key: 'userName',
-        text: 'ryo yoneyama'
+        text: user.isLoad ? user.displayName : ''
+      },
+      {
+        key: 'email',
+        text: user.isLoad ? user.email : ''
       },
       {
         key: 'signOut',
