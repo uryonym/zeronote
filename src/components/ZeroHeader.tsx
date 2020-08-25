@@ -9,9 +9,11 @@ import {
 import * as authService from '../lib/AuthService'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../store/UserSlice'
+import { selectNotebooks } from '../store/NoteSlice'
 
 export const ZeroHeader: React.FC = () => {
   const user = useSelector(selectUser)
+  const note = useSelector(selectNotebooks)
 
   const menuProps: IContextualMenuProps = {
     items: [
