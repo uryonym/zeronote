@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk, RootState } from '../app/store'
 import graphService from '../lib/GraphService'
 import { Notebook, OnenotePage } from 'microsoft-graph'
+import { IDropdownOption } from '@fluentui/react'
 
 interface NoteState {
   notebooks: Notebook[]
@@ -52,7 +53,13 @@ export const fetchPageData = (sectionId: string): AppThunk => async (
   }
 }
 
-export const selectNotebooks = (state: RootState) => state.note.notebooks
+export const selectNoteList = (state: RootState) => {
+  const noteList: IDropdownOption[] = []
+  state.note.notebooks.forEach((note) => {
+    noteList.push({ key: note.id ?? '', text: note.displayName ?? '' })
+  })
+  return noteList
+}
 
 export const selectPages = (state: RootState) => state.note.pages
 

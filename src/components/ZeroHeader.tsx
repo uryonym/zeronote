@@ -9,11 +9,11 @@ import {
 import * as authService from '../lib/AuthService'
 import { useSelector } from 'react-redux'
 import { selectUser } from '../store/UserSlice'
-import { selectNotebooks } from '../store/NoteSlice'
+import { selectNoteList } from '../store/NoteSlice'
 
 export const ZeroHeader: React.FC = () => {
   const user = useSelector(selectUser)
-  const note = useSelector(selectNotebooks)
+  const noteList = useSelector(selectNoteList)
 
   const menuProps: IContextualMenuProps = {
     items: [
@@ -47,19 +47,13 @@ export const ZeroHeader: React.FC = () => {
     }
   }
 
-  const dropdownOption: IDropdownOption[] = [
-    { key: 'note1', text: 'ノート１' },
-    { key: 'note2', text: 'ノート２' },
-    { key: 'note3', text: 'ノート３' }
-  ]
-
   return (
     <header className="zero-header">
       <h1>ZeroNote</h1>
       <Dropdown
         className="note-select"
         placeholder="ノートを選択"
-        options={dropdownOption}
+        options={noteList}
       />
       <IconButton
         className="user-icon"
