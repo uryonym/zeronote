@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent, useEffect } from 'react'
 import {
   IconButton,
   IContextualMenuProps,
@@ -7,13 +7,24 @@ import {
   IDropdownOption
 } from '@fluentui/react'
 import * as authService from '../lib/AuthService'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../store/UserSlice'
-import { selectNoteList } from '../store/NoteSlice'
+import {
+  setNoteId,
+  selectNoteList,
+  selectSectionList
+} from '../store/NoteSlice'
 
 export const ZeroHeader: React.FC = () => {
+  const dispatch = useDispatch()
+
   const user = useSelector(selectUser)
   const noteList = useSelector(selectNoteList)
+  const sectionList = useSelector(selectSectionList)
+
+  useEffect(() => {
+    console.log(sectionList)
+  })
 
   const menuProps: IContextualMenuProps = {
     items: [
@@ -47,11 +58,19 @@ export const ZeroHeader: React.FC = () => {
     }
   }
 
+  const onChange = (
+    event: FormEvent<HTMLDivElement>,
+    option?: IDropdownOption
+  ): void => {
+    dispatch(setNoteId(option ? option.key.toString() : undefined))
+  }
+
   return (
     <header className="zero-header">
       <h1>ZeroNote</h1>
       <Dropdown
         className="note-select"
+        onChange={onChange}
         placeholder="ノートを選択"
         options={noteList}
       />

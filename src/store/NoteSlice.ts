@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk, RootState } from '../app/store'
 import graphService from '../lib/GraphService'
 import { Notebook, OnenotePage } from 'microsoft-graph'
-import { IDropdownOption } from '@fluentui/react'
+import { IDropdownOption, INavLink } from '@fluentui/react'
 
 interface NoteState {
+  currentNoteId: string | undefined
   notebooks: Notebook[]
   pages: OnenotePage[]
 }
 
 const initialState: NoteState = {
+  currentNoteId: undefined,
   notebooks: [],
   pages: []
 }
@@ -18,6 +20,9 @@ export const noteSlice = createSlice({
   name: 'note',
   initialState,
   reducers: {
+    setNoteId: (state, action: PayloadAction<string | undefined>) => {
+      state.currentNoteId = action.payload
+    },
     setNotebookData: (state, action: PayloadAction<Notebook[]>) => {
       state.notebooks = action.payload
     },
@@ -27,7 +32,7 @@ export const noteSlice = createSlice({
   }
 })
 
-export const { setNotebookData, setPageData } = noteSlice.actions
+export const { setNoteId, setNotebookData, setPageData } = noteSlice.actions
 
 export const fetchNoteData = (): AppThunk => async (dispatch) => {
   try {
@@ -59,6 +64,23 @@ export const selectNoteList = (state: RootState) => {
     noteList.push({ key: note.id ?? '', text: note.displayName ?? '' })
   })
   return noteList
+}
+
+export const selectSectionList = (state: RootState) => {
+  const currentNote = state.note.notebooks.find(
+    (note) => note.id == state.note.currentNoteId
+  )
+  const sectionList: INavLink[] = []
+  if (currentNote && currentNote.sections) {
+    currentNote.sections.forEach((section) => {
+      sectionList.push({
+        name: section.displayName ?? '',
+        url: '',
+        onClick: () => console.log('click a ' + section.id)
+      })
+    })
+  }
+  return sectionList
 }
 
 export const selectPages = (state: RootState) => state.note.pages

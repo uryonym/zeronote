@@ -1,29 +1,12 @@
 import React from 'react'
 import { Nav, INavLinkGroup } from '@fluentui/react'
 import { sidebarStyles } from './SidebarStyle'
+import { useSelector } from 'react-redux'
+import { selectSectionList } from '../../store/NoteSlice'
 
 export const ZeroSectionBar: React.FC = () => {
-  const navLinkGroups: INavLinkGroup[] = [
-    {
-      links: [
-        {
-          name: 'セクション１',
-          url: '',
-          onClick: () => console.log('click a section1')
-        },
-        {
-          name: 'セクション２',
-          url: '',
-          onClick: () => console.log('click a section2')
-        },
-        {
-          name: 'セクション３',
-          url: '',
-          onClick: () => console.log('click a section3')
-        }
-      ]
-    }
-  ]
+  const sectionList = useSelector(selectSectionList)
+  const navLinkGroups: INavLinkGroup[] = [{ links: sectionList }]
 
   return (
     <div className="zero-sectionbar">
