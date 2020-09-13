@@ -25,5 +25,5 @@ export const ZeroEditor: React.FC = (props) => {
     createEditorView(pmEditor.current)
   })
 
-  return <div className="editor">{text}</div>
+  return <div className="editor"><textarea value={text}></textarea></div>
 }
