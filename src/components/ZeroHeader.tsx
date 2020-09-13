@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect } from 'react'
+import React, { FormEvent } from 'react'
 import {
   IconButton,
   IContextualMenuProps,
@@ -9,22 +9,13 @@ import {
 import * as authService from '../lib/AuthService'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../store/UserSlice'
-import {
-  setNoteId,
-  selectNoteList,
-  selectSectionList
-} from '../store/NoteSlice'
+import { setNoteId, selectNoteList } from '../store/NoteSlice'
 
 export const ZeroHeader: React.FC = () => {
   const dispatch = useDispatch()
 
   const user = useSelector(selectUser)
   const noteList = useSelector(selectNoteList)
-  const sectionList = useSelector(selectSectionList)
-
-  useEffect(() => {
-    console.log(sectionList)
-  })
 
   const menuProps: IContextualMenuProps = {
     items: [

@@ -1,20 +1,32 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk, RootState } from '../app/store'
 import graphService from '../lib/GraphService'
-import { Notebook, OnenotePage } from 'microsoft-graph'
-import { IDropdownOption, INavLink } from '@fluentui/react'
+import { Notebook, OnenotePage } from '@microsoft/microsoft-graph-types'
+import { IDropdownOption } from '@fluentui/react'
 
 interface NoteState {
   currentNoteId: string | undefined
   notebooks: Notebook[]
   pages: OnenotePage[]
+  content: string
 }
 
 const initialState: NoteState = {
   currentNoteId: undefined,
   notebooks: [],
-  pages: []
+  pages: [],
+  content: ''
 }
+
+export const fetchPageContent = createAsyncThunk(
+  'page/content',
+  async (arg: { pageId: string }) => {
+    const { pageId } = arg
+    const content = await graphService.getNoteContent(pageId)
+    console.log(content)
+    return content
+  }
+)
 
 export const noteSlice = createSlice({
   name: 'note',
@@ -29,6 +41,14 @@ export const noteSlice = createSlice({
     setPageData: (state, action: PayloadAction<OnenotePage[]>) => {
       state.pages = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchPageContent.fulfilled, (state, action) => {
+      return {
+        ...state,
+        content: action.payload
+      }
+    })
   }
 })
 
@@ -49,9 +69,9 @@ export const fetchPageData = (sectionId: string): AppThunk => async (
   dispatch
 ) => {
   try {
-    const page = await graphService.getPages(sectionId)
-    console.log(page)
-    dispatch(setPageData(page))
+    const pages = await graphService.getPages(sectionId)
+    console.log(pages)
+    dispatch(setPageData(pages))
   } catch (e) {
     const emptyPages: OnenotePage[] = []
     dispatch(setPageData(emptyPages))
@@ -68,21 +88,13 @@ export const selectNoteList = (state: RootState) => {
 
 export const selectSectionList = (state: RootState) => {
   const currentNote = state.note.notebooks.find(
-    (note) => note.id == state.note.currentNoteId
+    (note) => note.id === state.note.currentNoteId
   )
-  const sectionList: INavLink[] = []
-  if (currentNote && currentNote.sections) {
-    currentNote.sections.forEach((section) => {
-      sectionList.push({
-        name: section.displayName ?? '',
-        url: '',
-        onClick: () => console.log('click a ' + section.id)
-      })
-    })
-  }
-  return sectionList
+  return currentNote?.sections ?? []
 }
 
-export const selectPages = (state: RootState) => state.note.pages
+export const selectPageList = (state: RootState) => state.note.pages
+
+export const selectPageContent = (state: RootState): string => state.note.content
 
 export default noteSlice.reducer

@@ -6,8 +6,11 @@ import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
 import { Schema, DOMParser } from 'prosemirror-model'
 import { pmPlugins } from '../../lib/prosemirror/PmPlugins'
+import {useSelector} from "react-redux"
+import {selectPageContent} from "../../store/NoteSlice"
 
 export const ZeroEditor: React.FC = (props) => {
+  const text = useSelector(selectPageContent)
   const pmEditor = useRef<HTMLDivElement>(null)
   const editorState: EditorState = EditorState.create({ schema })
   let editorView: EditorView
@@ -22,5 +25,5 @@ export const ZeroEditor: React.FC = (props) => {
     createEditorView(pmEditor.current)
   })
 
-  return <div className="editor" ref={pmEditor}></div>
+  return <div className="editor">{text}</div>
 }

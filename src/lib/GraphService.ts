@@ -1,7 +1,7 @@
 import * as graph from '@microsoft/microsoft-graph-client'
 import * as authService from './AuthService'
 import { AuthProviderCallback, Client } from '@microsoft/microsoft-graph-client'
-import { Notebook, OnenotePage, OnenoteResource, User } from 'microsoft-graph'
+import { Notebook, OnenotePage, User } from '@microsoft/microsoft-graph-types'
 
 class GraphService {
   async getUserInfo(): Promise<User> {
@@ -29,20 +29,34 @@ class GraphService {
 
   async getPages(sectionId: string): Promise<OnenotePage[]> {
     const client = await this.getAuthClient()
-    return await client
+    const response = await client
       .api('/me/onenote/sections/' + sectionId + '/pages')
       .select('id,createdDateTime,title')
       .orderby('title')
-      .version('beta')
       .get()
+    return response.value
   }
 
-  async getNoteContent(pageId: string): Promise<OnenoteResource> {
+  async getNoteContent(pageId: string): Promise<string> {
     const client = await this.getAuthClient()
-    return await client
+    const response: ReadableStream = await client
       .api('/me/onenote/pages/' + pageId + '/content')
-      .version('beta')
-      .get()
+      .getStream()
+    const reader = await response.getReader()
+    const stream = new ReadableStream({
+      async start(controller) {
+        while(true) {
+          const { done, value } = await reader.read()
+          if (done) {
+            break
+          }
+          controller.enqueue(value)
+        }
+        controller.close()
+        reader.releaseLock()
+      }
+    })
+    return await new Response(stream).text()
   }
 
   private async getAuthClient(): Promise<Client> {
