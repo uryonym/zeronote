@@ -1,29 +1,63 @@
 import React, { useEffect, useRef } from 'react'
-import { schema } from 'prosemirror-schema-basic'
-import { addListNodes } from 'prosemirror-schema-list'
-import { tableNodes } from 'prosemirror-tables'
+import { mySchema } from '../../lib/prosemirror/MySchema'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
-import { Schema, DOMParser } from 'prosemirror-model'
+import { DOMParser } from 'prosemirror-model'
 import { pmPlugins } from '../../lib/prosemirror/PmPlugins'
-import {useSelector} from "react-redux"
-import {selectPageContent} from "../../store/NoteSlice"
+import { useSelector } from 'react-redux'
+import { selectPageContent, selectPageContentRaw } from '../../store/NoteSlice'
+import { schema } from 'prosemirror-schema-basic'
 
-export const ZeroEditor: React.FC = (props) => {
-  const text = useSelector(selectPageContent)
+export const ZeroEditor: React.FC = () => {
+  const content = useSelector(selectPageContentRaw)
+  const { title, body } = useSelector(selectPageContent)
+
   const pmEditor = useRef<HTMLDivElement>(null)
-  const editorState: EditorState = EditorState.create({ schema })
-  let editorView: EditorView
+  const eView = useRef<EditorView | null>(null)
+  const renderFlgRef = useRef(false)
 
   const createEditorView = (element: HTMLDivElement | null) => {
-    if (element != null) {
-      editorView = new EditorView(element, { state: editorState })
+    console.log('editorViewを作成します')
+    if (element) {
+      const eState = EditorState.create({
+        schema,
+        plugins: pmPlugins()
+      })
+      eView.current = new EditorView(element, {
+        state: eState,
+        dispatchTransaction(transaction) {
+          let newState = this.state.apply(transaction)
+          this.updateState(newState)
+        }
+      })
     }
   }
 
+  //初回レンダリング時のみ動作する
   useEffect(() => {
     createEditorView(pmEditor.current)
-  })
+    return () => eView.current?.destroy()
+  }, [])
 
-  return <div className="editor"><textarea value={text}></textarea></div>
+  //NoteContentStateが更新された場合のみ動作する
+  useEffect(() => {
+    if (renderFlgRef.current) {
+      console.log('editorStateの更新')
+      const doc = DOMParser.fromSchema(mySchema()).parse(body)
+      const editorState = EditorState.create({
+        doc,
+        plugins: pmPlugins()
+      })
+      eView.current?.updateState(editorState)
+    } else {
+      renderFlgRef.current = true
+    }
+  }, [content])
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <div className="editor" ref={pmEditor} />
+    </div>
+  )
 }

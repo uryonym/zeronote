@@ -95,6 +95,9 @@ export const selectSectionList = (state: RootState) => {
 
 export const selectPageList = (state: RootState) => state.note.pages
 
-export const selectPageContent = (state: RootState): string => state.note.content
+export const selectPageContent = (state: RootState): Document =>
+  new DOMParser().parseFromString(state.note.content, 'text/html')
+export const selectPageContentRaw = (state: RootState): string =>
+  state.note.content
 
 export default noteSlice.reducer

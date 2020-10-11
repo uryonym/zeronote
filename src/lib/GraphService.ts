@@ -45,7 +45,7 @@ class GraphService {
     const reader = await response.getReader()
     const stream = new ReadableStream({
       async start(controller) {
-        while(true) {
+        while (true) {
           const { done, value } = await reader.read()
           if (done) {
             break
