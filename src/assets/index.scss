@@ -50,6 +50,11 @@ body {
   }
 }
 
+.content {
+  display: flex;
+  height: calc(100% - 40px);
+}
+
 .zero-sectionbar {
   border-right: 1px solid #ddd;
 }
@@ -58,10 +63,17 @@ body {
   border-right: 1px solid #ddd;
 }
 
-.content {
-  display: flex;
-  height: 100%;
+.zero-editor {
+  width: 100%;
+  padding: 10px 40px;
+  overflow: auto;
+
+  .title-editor {
+    margin: 20px 0;
+  }
+
 }
+
 
 .editor {
   width: 100%;

@@ -7,10 +7,12 @@ import { pmPlugins } from '../../lib/prosemirror/PmPlugins'
 import { useSelector } from 'react-redux'
 import { selectPageContent, selectPageContentRaw } from '../../store/NoteSlice'
 import { schema } from 'prosemirror-schema-basic'
+import { PrimaryButton, TextField, ITextFieldStyles, IStyleFunction, ITextFieldStyleProps} from '@fluentui/react'
+import {DeepPartial} from '@uifabric/merge-styles'
 
 export const ZeroEditor: React.FC = () => {
   const content = useSelector(selectPageContentRaw)
-  const { title, body } = useSelector(selectPageContent)
+  const {title, body} = useSelector(selectPageContent)
 
   const pmEditor = useRef<HTMLDivElement>(null)
   const eView = useRef<EditorView | null>(null)
@@ -55,9 +57,22 @@ export const ZeroEditor: React.FC = () => {
   }, [content])
 
   return (
-    <div>
-      <h1>{title}</h1>
-      <div className="editor" ref={pmEditor} />
+    <div className="zero-editor">
+      <PrimaryButton text="保存"/>
+      <TextField className="title-editor" underlined value={title} styles={getTitleFormStyles()}/>
+      <div className="editor" ref={pmEditor}/>
     </div>
   )
+}
+
+//スタイル
+const getTitleFormStyles = (): Partial<ITextFieldStyles> => {
+  return {
+    fieldGroup: [
+      { height: 46 },
+    ],
+    field: [
+      { 'font-size': 32 }
+    ]
+  }
 }
