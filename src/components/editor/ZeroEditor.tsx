@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { mySchema } from '../../lib/prosemirror/MySchema'
 import { EditorState } from 'prosemirror-state'
 import { EditorView } from 'prosemirror-view'
@@ -7,12 +7,12 @@ import { pmPlugins } from '../../lib/prosemirror/PmPlugins'
 import { useSelector } from 'react-redux'
 import { selectPageContent, selectPageContentRaw } from '../../store/NoteSlice'
 import { schema } from 'prosemirror-schema-basic'
-import { PrimaryButton, TextField, ITextFieldStyles, IStyleFunction, ITextFieldStyleProps} from '@fluentui/react'
-import {DeepPartial} from '@uifabric/merge-styles'
+import { PrimaryButton, TextField, ITextFieldStyles } from '@fluentui/react'
 
 export const ZeroEditor: React.FC = () => {
   const content = useSelector(selectPageContentRaw)
-  const {title, body} = useSelector(selectPageContent)
+  const { title, body } = useSelector(selectPageContent)
+  const [pageTitle, setPageTitle] = useState('')
 
   const pmEditor = useRef<HTMLDivElement>(null)
   const eView = useRef<EditorView | null>(null)
@@ -51,16 +51,27 @@ export const ZeroEditor: React.FC = () => {
         plugins: pmPlugins()
       })
       eView.current?.updateState(editorState)
+      setPageTitle(title)
     } else {
       renderFlgRef.current = true
     }
   }, [content])
 
+  const handleChange = (e: any, value: string | undefined) => {
+    value ? setPageTitle(value) : setPageTitle('')
+  }
+
   return (
     <div className="zero-editor">
-      <PrimaryButton text="保存"/>
-      <TextField className="title-editor" underlined value={title} styles={getTitleFormStyles()}/>
-      <div className="editor" ref={pmEditor}/>
+      <PrimaryButton text="保存" />
+      <TextField
+        className="title-editor"
+        underlined
+        value={pageTitle}
+        onChange={handleChange}
+        styles={getTitleFormStyles()}
+      />
+      <div className="editor" ref={pmEditor} />
     </div>
   )
 }
@@ -68,11 +79,7 @@ export const ZeroEditor: React.FC = () => {
 //スタイル
 const getTitleFormStyles = (): Partial<ITextFieldStyles> => {
   return {
-    fieldGroup: [
-      { height: 46 },
-    ],
-    field: [
-      { 'font-size': 32 }
-    ]
+    fieldGroup: [{ height: 46 }],
+    field: [{ 'font-size': 32 }]
   }
 }
