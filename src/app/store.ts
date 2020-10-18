@@ -1,18 +1,11 @@
-import {
-  configureStore,
-  ThunkAction,
-  Action,
-  getDefaultMiddleware
-} from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import userReducer from '../store/UserSlice'
 import noteReducer from '../store/NoteSlice'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    note: noteReducer,
-    counter: counterReducer
+    note: noteReducer
   }
 })
 

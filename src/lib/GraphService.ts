@@ -4,6 +4,15 @@ import { AuthProviderCallback, Client } from '@microsoft/microsoft-graph-client'
 import { Notebook, OnenotePage, User } from '@microsoft/microsoft-graph-types'
 
 class GraphService {
+  private async getAuthClient(): Promise<Client> {
+    const token = await authService.getToken()
+    return graph.Client.init({
+      authProvider: (done: AuthProviderCallback) => {
+        done(null, token)
+      }
+    })
+  }
+
   async getUserInfo(): Promise<User> {
     const client = await this.getAuthClient()
     return await client.api('/me').get()
@@ -37,7 +46,7 @@ class GraphService {
     return response.value
   }
 
-  async getNoteContent(pageId: string): Promise<string> {
+  async getPageContent(pageId: string): Promise<string> {
     const client = await this.getAuthClient()
     const response: ReadableStream = await client
       .api('/me/onenote/pages/' + pageId + '/content')
@@ -57,15 +66,6 @@ class GraphService {
       }
     })
     return await new Response(stream).text()
-  }
-
-  private async getAuthClient(): Promise<Client> {
-    const token = await authService.getToken()
-    return graph.Client.init({
-      authProvider: (done: AuthProviderCallback) => {
-        done(null, token)
-      }
-    })
   }
 }
 

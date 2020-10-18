@@ -22,9 +22,7 @@ export const fetchPageContent = createAsyncThunk(
   'page/content',
   async (arg: { pageId: string }) => {
     const { pageId } = arg
-    const content = await graphService.getNoteContent(pageId)
-    console.log(content)
-    return content
+    return await graphService.getPageContent(pageId)
   }
 )
 
